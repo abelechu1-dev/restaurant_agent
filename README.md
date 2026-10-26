@@ -224,4 +224,4 @@ This project demonstrates how an AI agent can combine natural language understan
 
 Google Gemini interprets user requests, while Python functions retrieve and evaluate restaurant information from Yelp in a predefined sequence. The agent ranks suitable restaurants and explains its recommendations while identifying requirements that cannot be verified using the available data.
 
-The project illustrates how generative AI can work alongside traditional Python programming to build a structured, tool-driven recommendation system.
+
