@@ -1,83 +1,167 @@
 
 # Restaurant Recommendation AI Agent
 
-## Overview
-An intelligent restaurant recommendation agent built using Python, Google ADK, Gemini, and the Yelp Fusion API.
+## 1. Project Overview
 
-The agent understands user preferences, searches restaurants, evaluates constraints, and recommends suitable options.
+This project is an intelligent restaurant recommendation agent developed using Python, Google ADK, Google Gemini, and the Yelp Fusion API.
 
-## Technologies
-- Python
-- Google ADK
-- Google Gemini
-- Yelp Fusion API
-- Requests and python-dotenv
+The agent understands natural language requests, searches for restaurants, evaluates user constraints, and recommends suitable restaurants.
 
-## Agent Architecture
+The project demonstrates three AI concepts:
+- Searching for Solutions
+- Reasoning with Constraints
+- Deterministic Planning
+
+## 2. Problem Statement
+
+The agent is designed to handle requests such as:
+
+"Find a Turkish restaurant in Downtown Baltimore, MD for two people to have dinner under $65 on Thursday night at 7:30 PM with a table for two near a window overlooking a garden or street."
+
+The agent evaluates restaurant information and explains which requirements are satisfied and which cannot be verified.
+
+## 3. Technologies Used
+
+- Python — Application logic
+- Google ADK — AI agent framework
+- Google Gemini — Natural language processing and reasoning
+- Yelp Fusion API — Restaurant search
+- Requests — API communication
+- python-dotenv — Environment variable management
+
+## 4. Agent Architecture
+
 The agent uses a goal-based, tool-driven architecture.
 
-User Request → Gemini → Yelp Search → Constraint Checking → Ranking → Recommendation
+User Request → Gemini → Restaurant Search → Constraint Checking → Ranking → Recommendation
 
-Gemini understands the request and selects tools. Python functions perform searching, filtering, and ranking.
+Gemini interprets the user's preferences and invokes Python tools to retrieve and evaluate restaurant information.
 
-## States, Actions, and Goals
+### Agent States
 
-**States:**
-1. Initial — Receive and understand user preferences.
-2. Search — Retrieve restaurants from Yelp.
-3. Filter — Evaluate cuisine, location, hours, and budget.
-4. Rank — Order matching restaurants.
-5. Goal — Return recommendations with explanations.
+1. **Initial State:** Receive the user's request and extract preferences.
+2. **Search State:** Retrieve restaurant candidates from Yelp.
+3. **Filtering State:** Evaluate cuisine, location, opening hours, and budget.
+4. **Ranking State:** Rank suitable restaurants using Yelp ratings.
+5. **Goal State:** Return recommendations with explanations.
 
-**Actions:**
-- `search_restaurants()` — Search Yelp.
-- `check_constraints()` — Filter by cuisine.
-- `check_hours()` — Check operating hours.
-- `check_budget()` — Evaluate budget information.
-- `rank_restaurants()` — Rank by rating.
+### Agent Actions
 
-**Goal:** Find a Turkish restaurant in Downtown Baltimore for two people, Thursday at 7:30 PM, under $65, with the requested seating preference.
+- `search_restaurants()` — Search Yelp for restaurants.
+- `check_constraints()` — Filter restaurants by cuisine.
+- `check_hours()` — Check published operating hours.
+- `check_budget()` — Evaluate available budget information.
+- `rank_restaurants()` — Rank restaurants by Yelp rating.
 
-## AI Concepts
+The agent may also use `recommend_restaurants()` to execute these actions in a predefined order.
 
-**Searching for Solutions:** Yelp retrieves restaurant candidates.
+### Agent Goal
 
-**Reasoning with Constraints:** Python evaluates restaurant information against user requirements.
+Find the best available Turkish restaurant in Downtown Baltimore for two people on Thursday at 7:30 PM, with a total budget of $65 and the requested seating preference.
 
-**Deterministic Planning:** A predefined pipeline can enforce the sequence of search, filtering, hours checking, budget evaluation, and ranking.
+The agent must clearly identify any criteria it cannot verify.
 
-**NLP:** Gemini extracts user preferences from natural language.
+## 5. AI Concepts
 
-## Installation
+### Searching for Solutions
+
+The agent searches Yelp to retrieve candidate restaurants based on cuisine and location.
+
+### Reasoning with Constraints
+
+The agent evaluates restaurants using:
+- Cuisine: Turkish
+- Location: Downtown Baltimore
+- Budget: $65 for two people
+- Time: Thursday at 7:30 PM
+- Seating: Window with a garden or street view
+
+Constraints that cannot be verified are reported rather than assumed satisfied.
+
+### Deterministic Planning
+
+The planned sequence is:
+
+1. Understand the user request.
+2. Search for restaurants.
+3. Filter by cuisine.
+4. Check opening hours.
+5. Evaluate budget.
+6. Rank candidates.
+7. Explain recommendations.
+
+A Python orchestration function can enforce this sequence. Full workflow testing is still pending.
+
+## 6. Project Structure
+
+```text
+restaurant_agent/
+|
+|-- restaurant_recommender/
+|   |-- __init__.py
+|   |-- agent.py
+|   |-- tools.py
+|   |-- .env
+|   |-- .gitignore
+|
+|-- README.md
+```
+
+## 7. Installation
+
+Install the required libraries:
 
 ```bash
 pip install google-adk requests python-dotenv
 ```
 
-Create `restaurant_recommender/.env`:
+Create `restaurant_recommender/.env` and add:
 
+```env
+GOOGLE_API_KEY=your_google_api_key
+YELP_API_KEY=your_yelp_api_key
+```
 
-
-Run the agent from the project root:
+Run the application from the project root:
 
 ```bash
 adk web
 ```
 
-## Example Request
+Open the local address shown in the terminal and select `restaurant_recommender`.
 
-Find a Turkish restaurant in Downtown Baltimore for two people on Thursday at 7:30 PM with a $65 budget.
+## 8. Example Request
 
-## Current Results
+Find a Turkish restaurant in Downtown Baltimore for two people on Thursday at 7:30 PM with a total budget of $65.
 
-- Yelp restaurant search works.
-- Turkish cuisine filtering works.
-- Thursday opening-hours checking works.
-- Cazbar was identified as a matching candidate.
-- Gemini generates restaurant recommendations.
+## 9. Current Results
 
-## Limitations
+During testing:
+- Yelp restaurant search successfully retrieved restaurant candidates.
+- Cuisine filtering identified Cazbar as a Turkish restaurant.
+- Published opening-hours checking confirmed Cazbar's regular Thursday hours include 7:30 PM.
+- Gemini generated restaurant recommendations.
 
-Yelp price categories do not confirm a $65 total meal cost. Window seating and reservation availability cannot be verified through the current tools.
+## 10. Limitations
 
-Budget filtering, full execution logging, and deterministic workflow verification are still being completed.
+- Yelp price categories do not confirm exact meal costs.
+- Window seating and reservation availability cannot be verified through the current API.
+- Exact Downtown Baltimore boundaries are not yet validated this is higly dependent on the data received from YELP.
+- Complete deterministic workflow and decision-log testing are pending.
+
+The agent should recommend contacting the restaurant for information unavailable through its tools.
+
+## 11. Demonstration
+
+The demonstration video will show:
+1. The project source code and architecture.
+2. Starting the agent using Google ADK.
+3. Entering a restaurant recommendation request.
+4. Inspecting tool execution and filtering.
+5. Displaying the final restaurant recommendation.
+
+## 12. Conclusion
+
+This project demonstrates a restaurant recommendation AI agent combining Gemini's natural language understanding with Yelp restaurant search and Python-based constraint evaluation.
+
+The agent provides recommendations using available evidence while clearly communicating unverified requirements.
