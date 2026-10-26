@@ -56,10 +56,7 @@ pip install google-adk requests python-dotenv
 
 Create `restaurant_recommender/.env`:
 
-```env
-GOOGLE_API_KEY=your_key
-YELP_API_KEY=your_key
-```
+
 
 Run the agent from the project root:
 
